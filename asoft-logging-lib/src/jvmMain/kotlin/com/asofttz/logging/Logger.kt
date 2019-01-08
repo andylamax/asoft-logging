@@ -1,0 +1,42 @@
+package com.asofttz.logging
+
+actual class Logger actual constructor(actual val source: String) {
+
+    actual fun d(msg: String) {
+        val log = Log(Log.Level.DEBUG, msg, source)
+        println()
+        Color.Blue.println(log)
+    }
+
+    actual fun e(msg: String) {
+        val log = Log(Log.Level.ERROR, msg, source)
+        Color.Maroon.println(log)
+    }
+
+    actual fun f(msg: String) {
+        val log = Log(Log.Level.FAILURE, msg, source)
+        Color.Red.println(log)
+    }
+
+    actual fun w(msg: String) {
+        val log = Log(Log.Level.WARNING, msg, source)
+        Color.Yellow.println(log)
+    }
+
+    actual fun i(msg: String) {
+        val log = Log(Log.Level.INFO, msg, source)
+        Color.Normal.println(log)
+    }
+
+    enum class Color(private val escape: String) {
+        Red("\u001B[31m"),
+        Maroon("\u001B[35m"),
+        Yellow("\u001B[33m"),
+        Blue("\u001B[36m"),
+        Normal("");
+
+        fun println(log: Log) {
+            println("$escape$log\u001B[0m")
+        }
+    }
+}
