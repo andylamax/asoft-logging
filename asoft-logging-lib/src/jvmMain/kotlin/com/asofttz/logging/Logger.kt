@@ -33,7 +33,7 @@ actual class Logger actual constructor(actual val source: String) {
         Maroon("\u001B[35m"),
         Yellow("\u001B[33m"),
         Blue("\u001B[36m"),
-        Normal("");
+        Normal("\u001B[0m");
 
         fun println(log: Log) {
             println("$escape$log\u001B[0m")
