@@ -4,19 +4,27 @@ import com.asofttz.date.Date
 import com.asofttz.date.DateFactory
 import com.asofttz.date.DateSerializer
 import com.asofttz.date.string
+import com.asofttz.neo4j.GeneratedValue
+import com.asofttz.neo4j.Id
+import com.asofttz.neo4j.NodeEntity
+import com.asofttz.neo4j.Property
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
 @Serializable
+@NodeEntity
 open class Log(
-        var level: Level = Level.DEBUG,
-        val msg: String = "",
-        var source: String = "anonymous"
+        @Property var level: Level = Level.DEBUG,
+        @Property var msg: String = "",
+        @Property var source: String = "anonymous"
 ) {
 
-    var id: Int = 0
+    @Id
+    @GeneratedValue
+    var id: Long? = null
 
     @Serializable(with = DateSerializer::class)
+    @Property
     var time: Date = DateFactory.today()
 
     @Transient

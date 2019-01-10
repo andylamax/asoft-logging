@@ -1,31 +1,35 @@
 package com.asofttz.logging
 
-actual class Logger actual constructor(actual val source: String) {
+actual class Logger actual constructor(actual val source: String, actual val server: LogServer?) {
 
     actual fun d(msg: String) {
         val log = Log(Log.Level.DEBUG, msg, source)
-        println()
         Color.Blue.println(log)
+        server?.pushToServer(log)
     }
 
     actual fun e(msg: String) {
         val log = Log(Log.Level.ERROR, msg, source)
         Color.Maroon.println(log)
+        server?.pushToServer(log)
     }
 
     actual fun f(msg: String) {
         val log = Log(Log.Level.FAILURE, msg, source)
         Color.Red.println(log)
+        server?.pushToServer(log)
     }
 
     actual fun w(msg: String) {
         val log = Log(Log.Level.WARNING, msg, source)
         Color.Yellow.println(log)
+        server?.pushToServer(log)
     }
 
     actual fun i(msg: String) {
         val log = Log(Log.Level.INFO, msg, source)
         Color.Normal.println(log)
+        server?.pushToServer(log)
     }
 
     enum class Color(private val escape: String) {
