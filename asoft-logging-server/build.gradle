@@ -21,7 +21,7 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'application'
 apply plugin: "org.jetbrains.kotlin.plugin.noarg"
 
-group 'asoft-logging-server'
+group 'com.asofttz.logging.server'
 version '0.0.0'
 mainClassName = "io.ktor.server.netty.EngineMain"
 

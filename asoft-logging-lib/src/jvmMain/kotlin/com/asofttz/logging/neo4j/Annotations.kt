@@ -1,4 +1,4 @@
-package com.asofttz.neo4j
+package com.asofttz.logging.neo4j
 
 actual typealias ValueFor = org.neo4j.ogm.annotation.ValueFor
 

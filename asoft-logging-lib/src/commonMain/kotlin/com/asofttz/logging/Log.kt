@@ -4,10 +4,10 @@ import com.asofttz.date.Date
 import com.asofttz.date.DateFactory
 import com.asofttz.date.DateSerializer
 import com.asofttz.date.string
-import com.asofttz.neo4j.GeneratedValue
-import com.asofttz.neo4j.Id
-import com.asofttz.neo4j.NodeEntity
-import com.asofttz.neo4j.Property
+import com.asofttz.logging.neo4j.GeneratedValue
+import com.asofttz.logging.neo4j.Id
+import com.asofttz.logging.neo4j.NodeEntity
+import com.asofttz.logging.neo4j.Property
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 

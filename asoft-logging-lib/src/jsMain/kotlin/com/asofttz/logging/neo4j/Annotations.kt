@@ -1,4 +1,4 @@
-package com.asofttz.neo4j
+package com.asofttz.logging.neo4j
 
 actual annotation class NodeEntity actual constructor()
 

@@ -1,5 +1,6 @@
 package com.asofttz.logging
 
+import com.asofttz.logging.data.dao.ClientLogDao
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post
 import io.ktor.client.response.HttpResponse
@@ -15,9 +16,12 @@ open class LogServer(private val url: String? = null) {
     private val client = HttpClient()
     private val logger = Logger("Log Server")
 
+    val logDao = ClientLogDao()
+
     fun getLogger(source: String) = Logger(source, this)
 
     fun pushToServer(log: Log) = GlobalScope.launch(Dispatchers.Unconfined) {
+        logDao.saveLog(log)
         val logJson = JSON.stringify(Log.serializer(), log)
         client.post<Unit>("$url/log") {
             body = TextContent(logJson, ContentType.Application.Json)

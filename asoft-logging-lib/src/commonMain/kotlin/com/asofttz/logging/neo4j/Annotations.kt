@@ -1,4 +1,4 @@
-package com.asofttz.neo4j
+package com.asofttz.logging.neo4j
 
 @ExperimentalMultiplatform
 @OptionalExpectation
