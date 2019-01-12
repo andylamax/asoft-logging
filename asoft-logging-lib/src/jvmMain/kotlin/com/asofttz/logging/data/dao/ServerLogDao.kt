@@ -32,7 +32,7 @@ class ServerLogDao private constructor(config: LogDataSourceConfig) : LogDao() {
     override fun saveLog(log: Log) = synchronized(this) {
         with(sessionFactory.openSession()) {
             save(log)
-            cachedLogs.add(log)
+            cachedLogs.add(0,log)
             clear()
         }
     }

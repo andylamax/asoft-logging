@@ -39,7 +39,7 @@ class ClientLogDao private constructor(private val config: LogDataSourceConfig) 
                 body = TextContent(logJson, ContentType.Application.Json)
             }
         }
-        cachedLogs.add(log)
+        cachedLogs.add(0,log)
     }
 
     override fun getLogs(): ObservableList<Log> {

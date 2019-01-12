@@ -10,7 +10,7 @@ actual class Logger actual constructor(actual val source: String, actual val ser
 
     actual fun e(msg: String) {
         val log = Log(Log.Level.ERROR, msg, source)
-        Color.Maroon.println(log)
+        Color.Red.println(log)
         server?.pushToServer(log)
     }
 
