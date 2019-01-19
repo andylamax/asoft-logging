@@ -38,7 +38,9 @@ fun Application.module() {
     val logger = injection.logger
 
     routing {
-        get("/logs") {
+        val config = injection.config
+
+        get(config.route_get_logs) {
             val viewModal = injection.viewModal
             val logs = viewModal.getLogs().value.asReversed()
             val logsJson = JSON.indented.stringify(Log.serializer().list, logs)
@@ -46,7 +48,7 @@ fun Application.module() {
             call.respondJson(logsJson)
         }
 
-        post("/log") {
+        post(config.route_post_log) {
             val viewModal = injection.viewModal
             val log = JSON.parse(Log.serializer(), call.receive())
             log.log()

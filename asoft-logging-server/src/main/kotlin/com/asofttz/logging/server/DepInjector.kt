@@ -12,10 +12,8 @@ object injection {
 
     val logger = Logger("logging-server")
 
-    private val config = LogDataSourceConfig().apply {
-        url = "bolt://localhost:8082"
-        username = "admin"
-        password = "admin"
+    val config = LogDataSourceConfig().apply {
+        url = "bolt://localhost:9002"
     }
 
     init {

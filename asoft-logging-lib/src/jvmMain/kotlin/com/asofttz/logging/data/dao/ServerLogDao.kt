@@ -32,7 +32,7 @@ class ServerLogDao private constructor(config: LogDataSourceConfig) : LogDao() {
     override fun saveLog(log: Log) = synchronized(this) {
         with(sessionFactory.openSession()) {
             save(log)
-            cachedLogs.add(0,log)
+            cachedLogs.add(0, log)
             clear()
         }
     }
@@ -41,7 +41,7 @@ class ServerLogDao private constructor(config: LogDataSourceConfig) : LogDao() {
         with(sessionFactory.openSession()) {
             val logs = loadAll(Log::class.java)
             ObservableList<Log>().apply {
-                value = logs as MutableList<Log>
+                value = logs.toMutableList()
             }
         }
     }
