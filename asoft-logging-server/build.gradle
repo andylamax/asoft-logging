@@ -55,6 +55,7 @@ dependencies {
     implementation "io.ktor:ktor-html-builder:$ktor_version"
     implementation project(":asoft-logging:asoft-logging-lib")
     implementation project(":asoft-rx")
+    implementation project(":asoft-persist")
     runtime "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.9.1"
     implementation "io.ktor:ktor-gson:$ktor_version"
     implementation "io.ktor:ktor-client-core:$ktor_version"

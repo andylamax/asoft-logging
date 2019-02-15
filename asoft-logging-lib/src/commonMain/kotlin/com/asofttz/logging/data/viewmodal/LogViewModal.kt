@@ -1,11 +1,13 @@
 package com.asofttz.logging.data.viewmodal
 
 import com.asofttz.logging.Log
-import com.asofttz.logging.data.repo.LogRepo
+import com.asofttz.persist.Repo
 
-class LogViewModal(private val repository: LogRepo) {
+class LogViewModal(private val repo: Repo<Log>) {
 
-    fun getLogs() = repository.getLogs()
+    suspend fun filter(predicate: (Log) -> Boolean) = repo.filter(predicate)
 
-    fun saveLog(log: Log) = repository.saveLog(log)
+    suspend fun getLogs() = repo.loadAll()
+
+    suspend fun saveLog(log: Log) = repo.create(log)
 }

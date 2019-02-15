@@ -3,17 +3,18 @@ package com.asofttz.logging.server
 import com.asofttz.logging.Logger
 import com.asofttz.logging.data.dao.ServerLogDao
 import com.asofttz.logging.data.db.LogDataSourceConfig
-import com.asofttz.logging.data.repo.LogRepo
 import com.asofttz.logging.data.viewmodal.LogViewModal
+import com.asofttz.persist.DataSourceConfig
+import com.asofttz.persist.RepoFactory
 import java.io.File
-import java.lang.Exception
 
 object injection {
 
     val logger = Logger("logging-server")
 
-    val config = LogDataSourceConfig().apply {
-        url = "bolt://localhost:9002"
+    val config = DataSourceConfig("bolt://localhost:9002").apply {
+        username = "admin"
+        password = "admin"
     }
 
     init {
@@ -43,7 +44,7 @@ object injection {
 
     private val logDao = ServerLogDao.getInstance(config)
 
-    private val logRepo = LogRepo.getInstance(logDao)
+    private val logRepo = RepoFactory.getRepo(logDao)
 
     val viewModal: LogViewModal
         get() = LogViewModal(logRepo)
