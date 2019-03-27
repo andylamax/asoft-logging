@@ -2,30 +2,25 @@ package com.asofttz.logging.server
 
 import com.asofttz.logging.Logger
 import com.asofttz.logging.data.dao.ServerLogDao
-import com.asofttz.logging.data.db.LogDataSourceConfig
 import com.asofttz.logging.data.viewmodal.LogViewModal
 import com.asofttz.persist.DataSourceConfig
 import com.asofttz.persist.RepoFactory
-import java.io.File
 
 object injection {
 
     val logger = Logger("logging-server")
 
-    val config = DataSourceConfig("bolt://localhost:9002").apply {
-        username = "admin"
-        password = "admin"
-    }
+    val config = DataSourceConfig("bolt://logging-db:7687")
 
     init {
         val classLoader = javaClass.classLoader
         try {
-            val file = File(classLoader.getResource("credentials.txt").file)
+            val file = classLoader.getResourceAsStream("credentials.txt")
 
             println("\n\n\n\n")
             logger.i("Loading Credentials")
 
-            val line = file.readLines()
+            val line = file.reader().readLines()
             config.apply {
                 try {
                     username = line[0].split(" ")[0]

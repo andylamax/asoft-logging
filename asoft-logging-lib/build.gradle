@@ -20,7 +20,7 @@ repositories {
     maven { url 'https://kotlin.bintray.com/ktor' }
     mavenCentral()
 }
-group 'logging.asofttz.com'
+group 'com.asofttz'
 version '4.0.0'
 
 apply plugin: 'maven-publish'

@@ -19,6 +19,8 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 import io.ktor.util.pipeline.PipelineContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.html.*
@@ -38,17 +40,22 @@ fun Application.module() {
     val logger = injection.logger
 
     routing {
-        val config = injection.config
-
-        get(config.route_get_logs) {
+        get("/logs") {
             val viewModal = injection.viewModal
-            val logs = viewModal.getLogs().value.asReversed()
-            val logsJson = JSON.indented.stringify(Log.serializer().list, logs)
-            logger.i("Sending logs")
-            call.respondJson(logsJson)
+            try {
+                val logs = viewModal.getLogs().value.asReversed()
+                val logsJson = JSON.indented.stringify(Log.serializer().list, logs)
+                logger.i("Sending logs")
+                call.respondJson(logsJson)
+            } catch (e: Throwable) {
+                call.respondJson("""{
+                    "status": false,
+                    "cause": "${e.message}"
+                    }""".trimMargin())
+            }
         }
 
-        post(config.route_post_log) {
+        post("/log") {
             val viewModal = injection.viewModal
             val log = JSON.parse(Log.serializer(), call.receive())
             log.log()

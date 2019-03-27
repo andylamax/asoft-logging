@@ -21,7 +21,7 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'application'
 apply plugin: "org.jetbrains.kotlin.plugin.noarg"
 
-group 'server.logging.asofttz.com'
+group 'com.asofttz'
 version '0.0.0'
 mainClassName = "io.ktor.server.netty.EngineMain"
 
@@ -71,7 +71,7 @@ dependencies {
 task initDb {
     def dbName = "asoft-logging-testdb"
     def dbPath = file("$project.parent.projectDir.path/asoft-logging-db/$dbName")
-    
+
     def dockerCommand = "docker run --rm -p 9001:7474 -p 9002:7687 "
     dockerCommand += "-v $dbPath/data:/data -v $dbPath/logs:/logs "
     dockerCommand += "--name $dbName neo4j:3.5.1"
@@ -81,5 +81,11 @@ task initDb {
         exec {
             commandLine("gnome-terminal", "--geometry=35x8", "-e", dockerCommand)
         }
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
