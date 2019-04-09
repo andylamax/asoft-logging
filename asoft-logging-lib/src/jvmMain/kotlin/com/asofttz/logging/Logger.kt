@@ -32,6 +32,11 @@ actual class Logger actual constructor(actual val source: String, actual val ser
         server?.pushToServer(log)
     }
 
+    actual fun obj(vararg o: Any) = o.forEach {
+        val log = Log(Log.Level.INFO, it.toString(), source)
+        Color.Normal.println(log)
+    }
+
     enum class Color(private val escape: String) {
         Red("\u001B[31m"),
         Maroon("\u001B[35m"),

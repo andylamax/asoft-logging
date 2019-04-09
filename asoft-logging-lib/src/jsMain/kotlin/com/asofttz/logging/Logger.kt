@@ -31,4 +31,8 @@ actual class Logger actual constructor(actual val source: String, actual val ser
         console.info("$log")
         server?.pushToServer(log)
     }
+
+    actual fun obj(vararg o: Any) {
+        console.log(o)
+    }
 }
