@@ -35,9 +35,7 @@ open class Log(
         ERROR, WARNING, DEBUG, FAILURE, INFO
     }
 
-    override fun toString(): String {
-        return "${time.string()} $source [$level] - $msg"
-    }
+    override fun toString() = "${time.string()} [$level] $source - $msg"
 
     fun log() = when (level) {
         Level.ERROR -> logger.e(msg)

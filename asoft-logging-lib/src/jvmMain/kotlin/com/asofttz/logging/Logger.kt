@@ -32,8 +32,13 @@ actual class Logger actual constructor(actual val source: String, actual val ser
         server?.pushToServer(log)
     }
 
-    actual fun obj(vararg o: Any) = o.forEach {
+    actual fun obj(vararg o: Any?) = o.forEach {
         val log = Log(Log.Level.INFO, it.toString(), source)
+        Color.Normal.println(log)
+    }
+
+    actual fun obj(o: Any?) {
+        val log = Log(Log.Level.INFO, o.toString(), source)
         Color.Normal.println(log)
     }
 
