@@ -1,9 +1,7 @@
-/.gradle
-/.idea
-/out
-/build
+**/build
+.gradle
+**/.gradle
+**/.idea
+.idea
+build/**
 *.iml
-*.ipr
-*.iws
-/asoft-logging-db
-/asoft-logging-server/src/main/resources/credentials.txt
