@@ -5,7 +5,7 @@ import kotlin.test.BeforeTest
 class LoggerTest {
     @BeforeTest
     fun init() {
-        val Log = Logger("Products")
-        Log.d("This is a debug test")
+        val log = Logger("Products")
+        log.d("This is a debug test")
     }
 }

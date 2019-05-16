@@ -29,7 +29,7 @@ class ServerLogDao private constructor(config: DataSourceConfig) : Dao<Log>() {
             Log::class.java.`package`.name
     )
 
-    override suspend fun create(log: Log): Boolean {
+    override suspend fun create(log: Log): Log? {
         synchronized(this) {
             with(sessionFactory.openSession()) {
                 save(log)
@@ -37,15 +37,15 @@ class ServerLogDao private constructor(config: DataSourceConfig) : Dao<Log>() {
                 clear()
             }
         }
-        return true
+        return log
     }
 
-    override suspend fun edit(t: Log): Boolean {
-        return false
+    override suspend fun edit(t: Log): Log? {
+        return null
     }
 
-    override suspend fun delete(t: Log): Boolean {
-        return false
+    override suspend fun delete(t: Log): Log? {
+        return null
     }
 
     override suspend fun load(id: Int): Log? {

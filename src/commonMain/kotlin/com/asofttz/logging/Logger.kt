@@ -1,8 +1,10 @@
 package com.asofttz.logging
 
-expect class Logger(source: String = "anonymous", server: LogServer? = null) {
+import com.asofttz.persist.PaginatedRepo
+
+expect class Logger(source: String = "anonymous", repo: PaginatedRepo<Log>? = null) {
     val source: String
-    val server: LogServer?
+    val repo: PaginatedRepo<Log>?
     fun d(msg: String)
     fun e(msg: String)
     fun f(msg: String)
