@@ -1,15 +1,9 @@
 package com.asofttz.logging
 
 import com.asofttz.persist.PaginatedRepo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-actual class Logger actual constructor(actual val source: String, actual val repo: PaginatedRepo<Log>?) : CoroutineScope {
-    private val job = Job()
-    override val coroutineContext = job + Dispatchers.Default
-
+actual class Logger actual constructor(actual val source: String, actual val repo: PaginatedRepo<Log>?) {
     actual fun d(msg: String) {
         val log = Log(Log.Level.DEBUG, msg, source)
         console.log("$log")
@@ -41,12 +35,14 @@ actual class Logger actual constructor(actual val source: String, actual val rep
     }
 
     actual fun obj(vararg o: Any?) {
-        console.log(o)
+        o.forEach {
+            console.log(it)
+        }
     }
 
     actual fun obj(o: Any?) = console.log(o)
 
-    private fun Log.send() = launch {
+    private fun Log.send() = GlobalScope.launch {
         repo?.create(this@send)
     }
 }
