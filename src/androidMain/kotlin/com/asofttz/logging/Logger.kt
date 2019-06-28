@@ -1,5 +1,6 @@
 package com.asofttz.logging
 
+import com.asofttz.logging.tools.Cause
 import com.asofttz.persist.PaginatedRepo
 import kotlinx.coroutines.*
 import android.util.Log as ALog
@@ -12,15 +13,27 @@ actual class Logger actual constructor(actual val source: String, actual val rep
         log.send()
     }
 
-    actual fun e(msg: String) {
+    actual fun e(msg: String, c: Cause?) {
         val log = Log(Log.Level.ERROR, msg, source)
-        ALog.e(source, log.msg)
+        ALog.e(source, log.msg, c)
         log.send()
     }
 
-    actual fun f(msg: String) {
+    actual fun e(c: Cause?) {
+        val log = Log(Log.Level.ERROR, c?.message ?: "No Message", source)
+        ALog.e(source, log.msg, c)
+        log.send()
+    }
+
+    actual fun f(msg: String, c: Cause?) {
         val log = Log(Log.Level.FAILURE, msg, source)
-        ALog.wtf(source, msg)
+        ALog.wtf(source, msg, c)
+        log.send()
+    }
+
+    actual fun f(c: Cause?) {
+        val log = Log(Log.Level.FAILURE, c?.message ?: "No Message", source)
+        ALog.wtf(source, log.msg, c)
         log.send()
     }
 
