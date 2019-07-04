@@ -69,7 +69,7 @@ repositories {
 }
 
 kotlin {
-    jvm() {
+    jvm("jvmDesktop") {
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 jvmTarget = "1.8"
@@ -112,14 +112,7 @@ kotlin {
             }
         }
 
-        commonTest {
-            dependencies {
-                implementation kotlin('test-common')
-                implementation kotlin('test-annotations-common')
-            }
-        }
-
-        jvmMain {
+        jvmCommonMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializatoin_version"
@@ -127,19 +120,13 @@ kotlin {
             }
         }
 
-        jvmTest {
-            dependencies {
-                implementation kotlin('test')
-                implementation kotlin('test-junit')
-            }
+        jvmDesktopMain {
+            dependsOn jvmCommonMain
         }
 
         androidMain {
-            dependsOn commonMain
+            dependsOn jvmCommonMain
             dependencies {
-                implementation kotlin('stdlib-jdk8')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializatoin_version"
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
             }
         }
@@ -149,13 +136,6 @@ kotlin {
                 implementation kotlin('stdlib-js')
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializatoin_version"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.1.1"
-            }
-        }
-
-        jsTest {
-            dependsOn jsMain
-            dependencies {
-                implementation kotlin('test-js')
             }
         }
     }
