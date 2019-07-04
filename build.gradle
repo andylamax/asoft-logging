@@ -45,15 +45,15 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-//    buildTypes {
-//        staging {
-////            matchingFallbacks = ['release', 'debug']
-//        }
-//        release {
-//            minifyEnabled true
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//    }
+    buildTypes {
+        staging {
+            matchingFallbacks = ['release', 'debug']
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 repositories {
@@ -98,7 +98,7 @@ kotlin {
     }
 
     android {
-        publishLibraryVariants("debug")
+        publishLibraryVariants("debug","release")
     }
 
     sourceSets {
