@@ -11,7 +11,7 @@ open class Log(
         var source: String = "anonymous"
 ) {
 
-    var id: Long? = null
+    var id = ""
 
     var time = DateTime.nowUnixLong()
 
@@ -23,7 +23,15 @@ open class Log(
         ERROR, WARNING, DEBUG, FAILURE, INFO
     }
 
-    override fun toString() = DateTime.fromUnix(time).format("yyyy-MM-dd HH:mm:ss.XXX") + " [$level] $source - $msg"
+    override fun toString() = DateTime.fromUnix(time).format("yyyy-MM-dd HH:mm:ss.SSS") + " ${levelString()} $source - $msg"
+
+    private fun levelString() = when (level) {
+        Level.ERROR.name -> "[ ERROR ]"
+        Level.WARNING.name -> "[WARNING]"
+        Level.DEBUG.name -> "[ DEBUG ]"
+        Level.FAILURE.name -> "[FAILURE]"
+        else -> "[I N F O]"
+    }
 
     fun log() = when (level) {
         Level.ERROR.name -> logger.e(msg)

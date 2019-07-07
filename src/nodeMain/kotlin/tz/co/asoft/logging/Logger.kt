@@ -4,66 +4,84 @@ import tz.co.asoft.logging.tools.Cause
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import tz.co.asoft.persist.repo.PaginatedRepo
-import android.util.Log as ALog
 
 actual open class Logger actual constructor(protected actual val source: String, protected actual val repo: PaginatedRepo<Log>?) {
     actual var tag = ""
-    
-    private val origin get() = if(tag.isEmpty()) source else "$source/$tag"
-    
+
+    private val origin get() = if (tag.isEmpty()) source else "$source/$tag"
+
     actual fun d(msg: String) {
         val log = Log(Log.Level.DEBUG.name, msg, origin)
-        ALog.d(source, log.msg)
+        Color.Blue.println(log)
         log.send()
     }
 
     actual fun e(msg: String, c: Cause?) {
         val log = Log(Log.Level.ERROR.name, msg, origin)
-        ALog.e(source, log.msg, c)
+        Color.Red.println(log)
+        c?.printStackTrace()
         log.send()
     }
 
     actual fun e(c: Cause?) {
         val log = Log(Log.Level.ERROR.name, c?.message ?: "No Message", origin)
-        ALog.e(source, log.msg, c)
+        Color.Red.println(log)
+        c?.printStackTrace()
         log.send()
     }
 
     actual fun f(msg: String, c: Cause?) {
         val log = Log(Log.Level.FAILURE.name, msg, origin)
-        ALog.wtf(source, msg, c)
+        Color.Red.println(log)
+        c?.printStackTrace()
         log.send()
     }
 
     actual fun f(c: Cause?) {
         val log = Log(Log.Level.FAILURE.name, c?.message ?: "No Message", origin)
-        ALog.wtf(source, log.msg, c)
+        Color.Red.println(log)
+        c?.printStackTrace()
         log.send()
     }
 
     actual fun w(msg: String) {
         val log = Log(Log.Level.WARNING.name, msg, origin)
-        ALog.w(source, log.msg)
+        Color.Yellow.println(log)
         log.send()
     }
 
     actual fun i(msg: String) {
         val log = Log(Log.Level.INFO.name, msg, origin)
-        ALog.i(source, log.msg)
+        Color.Normal.println(log)
         log.send()
     }
 
     actual fun obj(vararg o: Any?) {
         o.forEach {
-            ALog.i(source, it.toString())
+            obj(it)
         }
     }
 
-    actual fun obj(o: Any?) {
-        ALog.i(source, o.toString())
-    }
+    actual fun obj(o: Any?) = console.log(o)
 
     private fun Log.send() = GlobalScope.launch {
         repo?.create(this@send)
+    }
+
+    private fun Color.println(log: Log) {
+        console.warn("$escape$log\u001B[0m")
+    }
+
+    private fun Color.trace(obj: Any?) {
+        console.warn(escape)
+        console.error(obj)
+        console.error("\nCurrent Call Stack\n")
+        console.asDynamic().trace(obj)
+        console.warn("\u001B[0m")
+    }
+
+    private fun Cause.printStackTrace() {
+        val err = Error(this)
+        Color.Red.trace(this)
     }
 }

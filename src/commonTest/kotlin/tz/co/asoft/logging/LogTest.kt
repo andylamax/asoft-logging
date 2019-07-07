@@ -4,11 +4,11 @@ import tz.co.asoft.logging.tools.Cause
 import kotlin.test.Test
 
 class LogTest {
-    private val log = Logger("test-logger")
+    private val log = Logger("test-logger").tagged("andylamax")
 
     @Test
     fun info() {
-        log.i("This is a test info")
+        log.i("This is a test info ")
     }
 
     @Test
@@ -33,12 +33,12 @@ class LogTest {
 
     @Test
     fun failureMessage(){
-        log.f("This is a test failure message")
+        log.f("This is a test failure message ")
     }
 
     @Test
     fun failureException() {
-        log.f(Cause("This is a test failure exception"))
+        log.f(Cause("This is a test of a failure exception"))
     }
 
     @Test

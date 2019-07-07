@@ -6,6 +6,7 @@ import tz.co.asoft.persist.repo.PaginatedRepo
 expect open class Logger(source: String = "anonymous", repo: PaginatedRepo<Log>? = null) {
     protected val source: String
     protected val repo: PaginatedRepo<Log>?
+    var tag: String
     fun d(msg: String)
     fun e(msg: String, c: Cause? = null)
     fun e(c: Cause? = null)
@@ -15,4 +16,8 @@ expect open class Logger(source: String = "anonymous", repo: PaginatedRepo<Log>?
     fun i(msg: String)
     fun obj(vararg o: Any?)
     fun obj(o: Any?)
+}
+
+fun Logger.tagged(tag: String) = also {
+    it.tag = tag
 }
