@@ -23,7 +23,7 @@ open class Log(
         ERROR, WARNING, DEBUG, FAILURE, INFO
     }
 
-    override fun toString() = DateTime.fromUnix(time).format("yyyy-MM-dd HH:mm:ss.SSS") + " ${levelString()} $source - $msg"
+    override fun toString() = DateTime.fromUnix(time).local.format("yyyy-MM-dd HH:mm:ss.SSS") + " ${levelString()} $source - $msg"
 
     private fun levelString() = when (level) {
         Level.ERROR.name -> "[ ERROR ]"
