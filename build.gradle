@@ -4,7 +4,7 @@ buildscript {
         serializatoin_version = "0.11.1"
         coroutines_version = "1.2.2"
         klock_version = "1.5.0"
-        persist_version = "2.0.1"
+        persist_version = "2.5.0"
     }
 
     repositories {
@@ -29,7 +29,7 @@ tasks.whenTaskAdded { task ->
 }
 
 group 'tz.co.asoft'
-version '2.1.1'
+version '2.2.0'
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
