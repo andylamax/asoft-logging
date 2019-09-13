@@ -53,12 +53,16 @@ actual open class Logger actual constructor(protected actual val source: String,
     }
 
     actual fun obj(vararg o: Any?) {
-        o.forEach {
-            console.log(it)
-        }
+        console.log(*o)
     }
 
-    actual fun obj(o: Any?) = console.log(o)
+    actual fun obj(o: Any?) = if (o is Collection<*>) {
+        console.log(o.toTypedArray())
+    } else {
+        console.log(o)
+    }
+
+    fun dir(o: Any) = console.dir(o)
 
     private fun Log.send() = GlobalScope.launch {
         repo?.create(this@send)

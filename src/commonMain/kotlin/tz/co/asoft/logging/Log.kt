@@ -2,7 +2,6 @@ package tz.co.asoft.logging
 
 import com.soywiz.klock.DateTime
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 
 @Serializable
 open class Log(
@@ -15,9 +14,7 @@ open class Log(
 
     var time = DateTime.nowUnixLong()
 
-    @Transient
-    private val logger: Logger
-        get() = Logger(source)
+    private val logger get() = Logger(source)
 
     enum class Level {
         ERROR, WARNING, DEBUG, FAILURE, INFO
