@@ -1,11 +1,11 @@
 package tz.co.asoft.logging
 
-import tz.co.asoft.logging.tools.Cause
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import tz.co.asoft.persist.repo.PaginatedRepo
+import tz.co.asoft.logging.tools.Cause
+import tz.co.asoft.persist.repo.IRepo
 
-actual open class Logger actual constructor(protected actual val source: String, protected actual val repo: PaginatedRepo<Log>?) {
+actual open class Logger actual constructor(protected actual val source: String, protected actual val repo: IRepo<Log>?) {
     actual var tag = ""
 
     private val origin get() = if (tag.isEmpty()) source else "$source/$tag"
