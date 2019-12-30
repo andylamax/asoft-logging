@@ -1,6 +1,6 @@
 package tz.co.asoft.logging
 
-enum class Color(val escape: String) {
+internal enum class Color(val escape: String) {
     Red("\u001B[31m"),
     Maroon("\u001B[35m"),
     Yellow("\u001B[33m"),
