@@ -64,8 +64,11 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
+def nodeAttribute = Attribute.of('tz.co.asoft.logging.platform', String)
+
 kotlin {
-    jvm() {
+    jvm {
+        attributes.attribute(nodeAttribute, 'jvm')
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 jvmTarget = "1.8"
@@ -73,7 +76,8 @@ kotlin {
         }
     }
 
-    android() {
+    android {
+        attributes.attribute(nodeAttribute, 'android')
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 jvmTarget = "1.8"
@@ -82,7 +86,8 @@ kotlin {
         publishLibraryVariants("release")
     }
 
-    js() {
+    js {
+        attributes.attribute(nodeAttribute, 'browser')
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 kotlinOptions.metaInfo = true
@@ -93,6 +98,7 @@ kotlin {
     }
 
     js("node") {
+        attributes.attribute(nodeAttribute, 'node')
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 kotlinOptions.metaInfo = true
@@ -116,7 +122,7 @@ kotlin {
         jvmMain {
             dependsOn commonMain
             dependencies {
-                implementation kotlin('stdlib-jdk8')
+                implementation kotlin('stdlib')
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializatoin_version"
                 implementation "com.github.andylamax.asoft-persist:asoft-persist-jvm:$persist_version"
                 implementation "com.soywiz.korlibs.klock:klock-jvm:$klock_version"
@@ -127,7 +133,7 @@ kotlin {
         androidMain {
             dependsOn commonMain
             dependencies {
-                implementation kotlin('stdlib-jdk8')
+                implementation kotlin('stdlib')
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializatoin_version"
                 implementation "com.github.andylamax.asoft-persist:asoft-persist-android:$persist_version"
                 implementation "com.soywiz.korlibs.klock:klock-android:$klock_version"
