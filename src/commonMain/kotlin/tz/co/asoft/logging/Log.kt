@@ -3,15 +3,15 @@ package tz.co.asoft.logging
 import com.soywiz.klock.DateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import tz.co.asoft.persist.model.Entity
 
 @Serializable
 open class Log(
         var level: String = Level.DEBUG.name,
         var msg: String = "",
         var source: String = "anonymous"
-) {
-
-    var id = ""
+) : Entity {
+    override var uid = ""
 
     var time = DateTime.nowUnixLong()
 

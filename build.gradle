@@ -1,11 +1,11 @@
 buildscript {
     ext {
-        kotlin_version = '1.3.61'
-        serializatoin_version = "0.14.0"
-        coroutines_version = "1.3.3"
-        klock_version = "1.8.5"
-        persist_version = "14.0.2"
-        android_tools_version = "3.3.2"
+        kotlin_version = '1.3.70'
+        serializatoin_version = "0.20.0"
+        coroutines_version = "1.3.4"
+        klock_version = "1.10.0"
+        persist_version = "16.0.0"
+        android_tools_version = "3.6.0"
     }
 
     repositories {
@@ -24,14 +24,8 @@ plugins {
     id 'kotlin-multiplatform' version '1.3.61'
 }
 
-tasks.whenTaskAdded { task ->
-    if (task.name.contains("install")) {
-//        task.enabled = false
-    }
-}
-
 group 'tz.co.asoft'
-version '6.0.0'
+version '7.0.0'
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
@@ -40,8 +34,7 @@ apply plugin: 'kotlinx-serialization'
 android {
     compileSdkVersion 28
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 28
+        minSdkVersion 1
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -90,7 +83,6 @@ kotlin {
     }
 
     js() {
-//        browser()
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 kotlinOptions.metaInfo = true
@@ -101,7 +93,6 @@ kotlin {
     }
 
     js("node") {
-//        nodejs()
         compilations.all {
             tasks[compileKotlinTaskName].kotlinOptions {
                 kotlinOptions.metaInfo = true
@@ -116,17 +107,9 @@ kotlin {
             dependencies {
                 implementation kotlin('stdlib-common')
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializatoin_version"
-                implementation "com.soywiz.korlibs.klock:klock-metadata:$klock_version"
+                implementation "com.soywiz.korlibs.klock:klock:$klock_version"
                 implementation "com.github.andylamax.asoft-persist:asoft-persist-metadata:$persist_version"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
-            }
-        }
-
-        commonTest {
-            dependsOn commonMain
-            dependencies {
-                implementation kotlin('test-common')
-                implementation kotlin('test-annotations-common')
             }
         }
 
@@ -141,14 +124,6 @@ kotlin {
             }
         }
 
-        jvmTest {
-            dependsOn jvmMain
-            dependencies {
-                implementation kotlin('test')
-                implementation kotlin('test-junit')
-            }
-        }
-
         androidMain {
             dependsOn commonMain
             dependencies {
@@ -157,14 +132,6 @@ kotlin {
                 implementation "com.github.andylamax.asoft-persist:asoft-persist-android:$persist_version"
                 implementation "com.soywiz.korlibs.klock:klock-android:$klock_version"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-            }
-        }
-
-        androidTest {
-            dependsOn androidMain
-            dependencies {
-                implementation kotlin('test')
-                implementation kotlin('test-junit')
             }
         }
 
@@ -178,13 +145,6 @@ kotlin {
             }
         }
 
-        jsTest {
-            dependsOn jsMain
-            dependencies {
-                implementation kotlin('test-js')
-            }
-        }
-
         nodeMain {
             dependencies {
                 implementation kotlin('stdlib-js')
@@ -192,13 +152,6 @@ kotlin {
                 implementation "com.github.andylamax.asoft-persist:asoft-persist-js:$persist_version"
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializatoin_version"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutines_version"
-            }
-        }
-
-        nodeTest {
-            dependsOn nodeMain
-            dependencies {
-                implementation kotlin('test-js')
             }
         }
     }
