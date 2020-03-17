@@ -1,6 +1,6 @@
 package tz.co.asoft.logging
 
-import com.soywiz.klock.DateTime
+import tz.co.asoft.klock.DateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import tz.co.asoft.persist.model.Entity
