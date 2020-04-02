@@ -31,13 +31,13 @@ actual open class Logger actual constructor(protected actual val source: String,
 
     actual fun f(msg: String, c: Cause?) {
         val log = Log(Log.Level.FAILURE.name, msg, origin)
-        ALog.wtf(source, msg, c)
+        ALog.e(source, msg, c)
         log.send()
     }
 
     actual fun f(c: Cause?) {
         val log = Log(Log.Level.FAILURE.name, c?.message ?: "No Message", origin)
-        ALog.wtf(source, log.msg, c)
+        ALog.e(source, log.msg, c)
         log.send()
     }
 

@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsTargetDsl
 
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.3.70"
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("maven-publish")
 }
