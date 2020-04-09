@@ -1,5 +1,8 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinJsCompilation
 import org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsTargetDsl
+import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrCompilation
+import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
 plugins {
     kotlin("multiplatform")
@@ -119,6 +122,16 @@ kotlin {
 
         val nodeTest by getting {
             dependsOn(jsCommonTest)
+        }
+
+        project.afterEvaluate {
+            tasks.filter { it.name.contains("Ir") }.mapNotNull { it as? Kotlin2JsCompile }.forEach {
+                println(it.name)
+                it.kotlinOptions {
+//                    freeCompilerArgs += "-XXLanguage:-NewInference"
+                    moduleKind = "umd"
+                }
+            }
         }
     }
 }

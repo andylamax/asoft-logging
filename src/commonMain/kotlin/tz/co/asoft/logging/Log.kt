@@ -4,8 +4,6 @@ import tz.co.asoft.klock.DateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import tz.co.asoft.persist.model.Entity
-import kotlin.reflect.cast
-import kotlin.reflect.safeCast
 
 @Serializable
 open class Log(
@@ -43,4 +41,3 @@ open class Log(
         else -> logger.i(msg)
     }
 }
-
